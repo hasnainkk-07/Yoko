@@ -1,0 +1,27 @@
+name: Replace and Commit
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  replace_and_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Replace amarnathcjd with hasnainkk-07
+      run: |
+        find . -type f -exec sed -i 's/amarnathcjd/hasnainkk-07/g' {} +
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add .
+        git commit -m "Initial commit"
+        git push
